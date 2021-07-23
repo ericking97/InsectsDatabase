@@ -20,8 +20,6 @@ import java.awt.event.ActionEvent;
 
 import java.util.ArrayList;
 
-import client.SwingImageClient;
-
 class SwingInsectClient extends RESTModule<Insect, InsectDTO> implements InsectClient {
 
   SwingInsectClient() {

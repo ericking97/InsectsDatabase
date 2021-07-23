@@ -18,14 +18,3 @@ Contenido sintético:
 5. Clases contenedoras
 6. Flujos de datos
 7. Modelado en el paradigma orientado a objetos en UML
-
-# Estudio
-
-## Paradigma
-
-Basado en la idea de que los **objetos** tienen atributos y métodos exclusivos de él.
-
-- Abstracción. Solo mostramos información relevante y ocultamos lo demás
-- Encapsulación. Los objetos deben autogobernarse, solo ellos pueden modificarse a sí mismo.
-- Herencia. Proceso mediante el cuál un objeto adquiere propiedades y métodos de otra clase
-- Polimorfismo. Nos permite cambiar el comportamiento de una clase.

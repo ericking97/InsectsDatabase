@@ -1,0 +1,123 @@
+@startuml Recuperación
+
+header domains
+
+class Category {
+  __ Private __
+  - String name
+}
+
+class CategoryDTO {
+  + String name
+}
+
+class Image {
+  __ Public __
+  + String description
+  + BufferedImage buffer
+}
+
+class ImageDTO {
+  + String description
+  + String location
+
+  + ImageDTO(String, String)
+  + Image create()
+  - {static} BufferedImage load(String)
+}
+
+class Insect {
+  __ Private __
+  - String commonName
+  - String scientificName
+  - String location
+  - ArrayList<Category> categories
+  __ Public __
+  + ArrayList<Image> images
+}
+
+class InsectDTO {
+  + String name
+  + String scientific
+  + String location
+  + ArrayList<Category> categories
+  + ArrayList<Image> images
+
+  + Insect create()
+  + void addCategory(CategoryDTO)
+  + void addImage(ImageDTO)
+}
+
+Insect::images "1" *-- "Many" Image
+Insect::categories "1" *-- "Many" Category
+
+newpage
+header Client
+
+interface Module {
+  + void loadModule(JMenubar menubar, Client cli)
+}
+
+interface CategoryClient {
+  + Category create(CategoryDTO)
+  + ArrayList<Category> list()
+}
+
+interface ImageClient {
+  + Image create(ImageDTO)
+  + ArrayList<Image> list()
+}
+
+interface InsectClient {
+  + Insect create(InsectDTO)
+  + ArrayList<Insect> list()
+}
+
+abstract class RESTModule <Entity,EntityDTO> {
+  __ Private __
+  - String moduleName
+  __ Protected __
+  # ArrayList<Entity> items
+  # JPanel CreatePanel
+  # JPanel ListPanel
+  __ Methods __
+  + void loadModule(JMenubar, Client)
+  + abstract Entity create(EntityDTO)
+  + abtract ArrayList<Entity> list()
+  # void loadListView()
+  # abstract void loadCreateView()
+}
+
+class SwingInsectClient <Insect, InsectDTO>{
+  SwingInsectClient()
+  # void loadCreateView()
+  # void loadListView()
+  + Insect create()
+  + ArrayList<Insect> list()
+}
+
+class SwingImageClient <Image, ImageDTO>{
+  SwingImageClient()
+  # void loadCreateView()
+  # void loadListView()
+  + {static} BufferedImage scaleImage(int, int, BufferedImage)
+  + Image create()
+  + ArrayList<Image> list()
+}
+
+class SwingCategoryClient <Category, CategoryDTO> {
+  SwingCategoryClient()
+  # void loadCreateView()
+  + Category create(CategoryDTO)
+  + ArrayList<Category> list()
+}
+
+RESTModule --> Module
+SwingInsectClient --|> RESTModule
+SwingInsectClient --> InsectClient
+SwingImageClient --|> RESTModule
+SwingImageClient --> ImageClient
+SwingCategoryClient --|> RESTModule
+SwingCategoryClient --> CategoryClient
+
+@enduml
